@@ -1,0 +1,18 @@
+secretGenerator:
+- name: mysql-secrets
+  literals:
+  - username=admin
+  - password=mysql_password
+configMapGenerator:
+- name: mysql-configmap
+  literals:
+  - FOO=Bar
+generatorOptions:
+  disableNameSuffixHash: false
+  labels:
+    type: generated
+  annotations:
+    note: generated
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml

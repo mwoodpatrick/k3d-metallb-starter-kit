@@ -1,8 +1,8 @@
 # create the k3d cluster
-k3d cluster create local-k8s --servers 1 --agents 3 --k3s-arg "--disable=traefik@server:0" --wait
+k3d cluster create westie-dev --servers 1 --agents 3 --k3s-arg "--disable=traefik@server:0" --wait --volume /run/udev:/run/udev --volume /mnt/wsl/projects:/projects
 
 # determine loadbalancer ingress range
-cidr_block=$(docker network inspect k3d-local-k8s | jq '.[0].IPAM.Config[0].Subnet' | tr -d '"')
+cidr_block=$(docker network inspect k3d-westie-dev | jq '.[0].IPAM.Config[0].Subnet' | tr -d '"')
 cidr_base_addr=${cidr_block%???}
 ingress_first_addr=$(echo $cidr_base_addr | awk -F'.' '{print $1,$2,255,0}' OFS='.')
 ingress_last_addr=$(echo $cidr_base_addr | awk -F'.' '{print $1,$2,255,255}' OFS='.')
@@ -28,7 +28,7 @@ data:
 EOF
 
 # set kubeconfig to access the k8s context
-export KUBECONFIG=$(k3d kubeconfig write local-k8s)
+export KUBECONFIG=$(k3d kubeconfig write westie-dev)
 
 # validate the cluster master and worker nodes
 kubectl get nodes
