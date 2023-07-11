@@ -14,3 +14,5 @@ echo "external_ip: $external_ip"
 
 # test the loadbalancer external ip
 curl $external_ip
+
+kubectl port-forward service/nginx :80
