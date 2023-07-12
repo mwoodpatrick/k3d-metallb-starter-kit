@@ -2,14 +2,23 @@
 apiVersion: k3d.io/v1alpha5
 kind: Simple
 metadata:
-  name: containers-fan-cluster2
+  name: westie-dev-config
 servers: 1
 agents: 2
 kubeAPI:
   host: "master.127.0.0.1.nip.io"
   hostIP: "127.0.0.1"
   hostPort: "6445"
-image: rancher/k3s:v1.20.4-k3s1
+image: docker.io/rancher/k3s:v1.26.4-k3s1
+volumes: # repeatable flags are represented as YAML lists
+  - volume: /mnt/wsl/projects:/projects # same as `--volume '/my/host/path:/path/in/node@server:0;agent:*'`
+    nodeFilters:
+      - server:0
+      - agent:*
+  - volume: /run/udev:/run/udev
+    nodeFilters:
+      - server:0
+      - agent:*
 ports:
   - port: 8080:80
     nodeFilters:
