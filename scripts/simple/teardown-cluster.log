@@ -1,0 +1,11 @@
+++ k3d cluster delete containers-fan-cluster
+[36mINFO[0m[0000] Deleting cluster 'containers-fan-cluster'    
+[36mINFO[0m[0002] Deleting cluster network 'k3d-containers-fan-cluster' 
+[36mINFO[0m[0002] Deleting 1 attached volumes...               
+[36mINFO[0m[0002] Removing cluster details from default kubeconfig... 
+[36mINFO[0m[0002] Removing standalone kubeconfig file (if there is one)... 
+[36mINFO[0m[0002] Successfully deleted cluster containers-fan-cluster! 
+++ kubectl config get-contexts
+CURRENT   NAME             CLUSTER          AUTHINFO               NAMESPACE
+*         k3d-westie-dev   k3d-westie-dev   admin@k3d-westie-dev   
+          minikube         minikube         minikube               default
