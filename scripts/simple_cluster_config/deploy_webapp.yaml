@@ -24,7 +24,7 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: "/demos/hostname"
         backend:
           service:
             name: hostname-service
