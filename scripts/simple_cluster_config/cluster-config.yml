@@ -4,7 +4,7 @@ kind: Simple
 metadata:
   name: westie-dev-config
 servers: 1
-agents: 2
+agents: 3
 kubeAPI:
   host: "master.127.0.0.1.nip.io"
   hostIP: "127.0.0.1"
