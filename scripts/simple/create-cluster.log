@@ -3,70 +3,70 @@ k3d version v5.5.1
 k3s version v1.26.4-k3s1 (default)
 ++ k3d cluster create containers-fan-cluster --wait
 [36mINFO[0m[0000] Prep: Network                                
-[36mINFO[0m[0000] Created network 'k3d-containers-fan-cluster' 
-[36mINFO[0m[0000] Created image volume k3d-containers-fan-cluster-images 
-[36mINFO[0m[0000] Starting new tools node...                   
-[36mINFO[0m[0000] Starting Node 'k3d-containers-fan-cluster-tools' 
-[36mINFO[0m[0001] Creating node 'k3d-containers-fan-cluster-server-0' 
-[36mINFO[0m[0001] Creating LoadBalancer 'k3d-containers-fan-cluster-serverlb' 
-[36mINFO[0m[0001] Using the k3d-tools node to gather environment information 
-[36mINFO[0m[0002] HostIP: using network gateway 192.168.96.1 address 
-[36mINFO[0m[0002] Starting cluster 'containers-fan-cluster'    
-[36mINFO[0m[0002] Starting servers...                          
-[36mINFO[0m[0002] Starting Node 'k3d-containers-fan-cluster-server-0' 
-[36mINFO[0m[0008] All agents already running.                  
-[36mINFO[0m[0008] Starting helpers...                          
-[36mINFO[0m[0008] Starting Node 'k3d-containers-fan-cluster-serverlb' 
-[36mINFO[0m[0015] Injecting records for hostAliases (incl. host.k3d.internal) and for 2 network members into CoreDNS configmap... 
-[36mINFO[0m[0017] Cluster 'containers-fan-cluster' created successfully! 
-[36mINFO[0m[0017] You can now use it like this:                
+[36mINFO[0m[0001] Created network 'k3d-containers-fan-cluster' 
+[36mINFO[0m[0001] Created image volume k3d-containers-fan-cluster-images 
+[36mINFO[0m[0002] Starting new tools node...                   
+[36mINFO[0m[0003] Creating node 'k3d-containers-fan-cluster-server-0' 
+[36mINFO[0m[0003] Starting Node 'k3d-containers-fan-cluster-tools' 
+[36mINFO[0m[0004] Creating LoadBalancer 'k3d-containers-fan-cluster-serverlb' 
+[36mINFO[0m[0006] Using the k3d-tools node to gather environment information 
+[36mINFO[0m[0011] HostIP: using network gateway 172.19.0.1 address 
+[36mINFO[0m[0011] Starting cluster 'containers-fan-cluster'    
+[36mINFO[0m[0011] Starting servers...                          
+[36mINFO[0m[0012] Starting Node 'k3d-containers-fan-cluster-server-0' 
+[36mINFO[0m[0039] All agents already running.                  
+[36mINFO[0m[0039] Starting helpers...                          
+[36mINFO[0m[0040] Starting Node 'k3d-containers-fan-cluster-serverlb' 
+[36mINFO[0m[0051] Injecting records for hostAliases (incl. host.k3d.internal) and for 2 network members into CoreDNS configmap... 
+[36mINFO[0m[0054] Cluster 'containers-fan-cluster' created successfully! 
+[36mINFO[0m[0054] You can now use it like this:                
 kubectl cluster-info
 ++ kubectl -n kube-system wait deployment.apps/metrics-server --for=condition=Available
-E0712 10:37:48.090087  454938 memcache.go:287] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
-E0712 10:37:48.102051  454938 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
-E0712 10:37:48.127471  454938 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0711 18:09:25.532658  870435 memcache.go:287] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0711 18:09:25.596579  870435 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0711 18:09:25.645686  870435 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
 deployment.apps/metrics-server condition met
 ++ kubectl -n kube-system wait apiservices v1beta1.metrics.k8s.io --for=condition=Available --timeout=5m
-E0712 10:37:52.550158  455051 memcache.go:287] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
-E0712 10:37:52.564447  455051 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
-E0712 10:37:52.568417  455051 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
-E0712 10:37:52.572750  455051 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0711 18:09:27.885651  870705 memcache.go:287] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0711 18:09:27.944434  870705 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0711 18:09:27.954073  870705 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0711 18:09:27.974794  870705 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
 apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io condition met
 
-real	0m22.690s
-user	0m0.116s
-sys	0m0.067s
+real	0m57.514s
+user	0m0.231s
+sys	0m0.153s
 ++ kubectl get apiservices
 NAME                                   SERVICE                      AVAILABLE   AGE
-v1.apps                                Local                        True        40s
-v1.apiextensions.k8s.io                Local                        True        40s
-v1.admissionregistration.k8s.io        Local                        True        40s
-v1.authentication.k8s.io               Local                        True        40s
-v1.                                    Local                        True        40s
-v2.autoscaling                         Local                        True        40s
-v1.batch                               Local                        True        40s
-v1.authorization.k8s.io                Local                        True        40s
-v1.autoscaling                         Local                        True        40s
-v1.coordination.k8s.io                 Local                        True        40s
-v1.certificates.k8s.io                 Local                        True        40s
-v1.discovery.k8s.io                    Local                        True        40s
-v1beta2.flowcontrol.apiserver.k8s.io   Local                        True        40s
-v1beta3.flowcontrol.apiserver.k8s.io   Local                        True        40s
-v1.networking.k8s.io                   Local                        True        40s
-v1.events.k8s.io                       Local                        True        40s
-v1.node.k8s.io                         Local                        True        40s
-v1.policy                              Local                        True        40s
-v1.scheduling.k8s.io                   Local                        True        40s
-v1.rbac.authorization.k8s.io           Local                        True        40s
-v1.storage.k8s.io                      Local                        True        40s
-v1beta1.storage.k8s.io                 Local                        True        40s
-v1.k3s.cattle.io                       Local                        True        37s
-v1.helm.cattle.io                      Local                        True        37s
-v1beta1.metrics.k8s.io                 kube-system/metrics-server   True        34s
+v1.                                    Local                        True        79s
+v1.admissionregistration.k8s.io        Local                        True        79s
+v1.apps                                Local                        True        79s
+v1.apiextensions.k8s.io                Local                        True        79s
+v2.autoscaling                         Local                        True        79s
+v1.autoscaling                         Local                        True        79s
+v1.authorization.k8s.io                Local                        True        79s
+v1.authentication.k8s.io               Local                        True        79s
+v1.discovery.k8s.io                    Local                        True        79s
+v1.certificates.k8s.io                 Local                        True        79s
+v1.coordination.k8s.io                 Local                        True        79s
+v1.batch                               Local                        True        79s
+v1.events.k8s.io                       Local                        True        79s
+v1beta2.flowcontrol.apiserver.k8s.io   Local                        True        79s
+v1.networking.k8s.io                   Local                        True        79s
+v1beta3.flowcontrol.apiserver.k8s.io   Local                        True        79s
+v1.scheduling.k8s.io                   Local                        True        79s
+v1.policy                              Local                        True        79s
+v1.rbac.authorization.k8s.io           Local                        True        79s
+v1.node.k8s.io                         Local                        True        79s
+v1beta1.storage.k8s.io                 Local                        True        79s
+v1.storage.k8s.io                      Local                        True        79s
+v1.k3s.cattle.io                       Local                        True        76s
+v1.helm.cattle.io                      Local                        True        76s
+v1beta1.metrics.k8s.io                 kube-system/metrics-server   True        71s
 ++ kubectl cluster-info
-[0;32mKubernetes control plane[0m is running at [0;33mhttps://0.0.0.0:39135[0m
-[0;32mCoreDNS[0m is running at [0;33mhttps://0.0.0.0:39135/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy[0m
-[0;32mMetrics-server[0m is running at [0;33mhttps://0.0.0.0:39135/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy[0m
+[0;32mKubernetes control plane[0m is running at [0;33mhttps://0.0.0.0:34371[0m
+[0;32mCoreDNS[0m is running at [0;33mhttps://0.0.0.0:34371/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy[0m
+[0;32mMetrics-server[0m is running at [0;33mhttps://0.0.0.0:34371/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy[0m
 
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ++ kubectl config get-contexts
@@ -75,5 +75,5 @@ CURRENT   NAME                         CLUSTER                      AUTHINFO    
           k3d-westie-dev               k3d-westie-dev               admin@k3d-westie-dev               
           minikube                     minikube                     minikube                           default
 ++ kubectl get nodes --output wide
-NAME                                  STATUS   ROLES                  AGE   VERSION        INTERNAL-IP    EXTERNAL-IP   OS-IMAGE   KERNEL-VERSION                      CONTAINER-RUNTIME
-k3d-containers-fan-cluster-server-0   Ready    control-plane,master   37s   v1.26.4+k3s1   192.168.96.2   <none>        K3s dev    5.15.90.2-microsoft-standard-WSL2   containerd://1.6.19-k3s1
+NAME                                  STATUS   ROLES                  AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE   KERNEL-VERSION                      CONTAINER-RUNTIME
+k3d-containers-fan-cluster-server-0   Ready    control-plane,master   76s   v1.26.4+k3s1   172.19.0.2    <none>        K3s dev    5.15.90.1-microsoft-standard-WSL2   containerd://1.6.19-k3s1
