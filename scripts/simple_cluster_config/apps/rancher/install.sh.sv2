@@ -1,0 +1,32 @@
+# https://github.com/waybarrios/k3d-nginx-ingress
+# https://ranchermanager.docs.rancher.com/getting-started/quick-start-guides/deploy-rancher-manager/helm-cli
+export RANCHER_HOST=rancher.westie.dev.to
+
+set -x
+
+kubectl delete namespace cattle-system
+
+helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
+helm repo update
+
+kubectl create namespace cattle-system
+
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
+
+helm repo add jetstack https://charts.jetstack.io
+
+helm install cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.11.0
+
+helm install rancher rancher-latest/rancher \
+  --namespace cattle-system \
+  --set hostname=${RANCHER_HOST} \
+  --set replicas=1 \
+  --set bootstrapPassword=bacanochevere \
+  --wait           \
+  --debug
+       
+# Wait for rancher to start
+kubectl -n cattle-system get deploy rancher
