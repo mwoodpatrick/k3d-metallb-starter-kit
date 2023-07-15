@@ -1,0 +1,131 @@
+++ k3d --version
+k3d version v5.5.1
+k3s version v1.26.4-k3s1 (default)
+++ k3d cluster create --config cluster-config.yaml --wait
+[36mINFO[0m[0000] Using config file cluster-config.yaml (k3d.io/v1alpha5#simple) 
+[36mINFO[0m[0000] portmapping '8080:80' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
+[36mINFO[0m[0000] Prep: Network                                
+[36mINFO[0m[0000] Created network 'k3d-westie-dev-config'      
+[36mINFO[0m[0000] Created image volume k3d-westie-dev-config-images 
+[36mINFO[0m[0000] Starting new tools node...                   
+[36mINFO[0m[0000] Starting Node 'k3d-westie-dev-config-tools'  
+[36mINFO[0m[0001] Creating node 'k3d-westie-dev-config-server-0' 
+[36mINFO[0m[0001] Creating node 'k3d-westie-dev-config-agent-0' 
+[36mINFO[0m[0001] Creating node 'k3d-westie-dev-config-agent-1' 
+[36mINFO[0m[0001] Creating node 'k3d-westie-dev-config-agent-2' 
+[36mINFO[0m[0001] Creating LoadBalancer 'k3d-westie-dev-config-serverlb' 
+[36mINFO[0m[0001] Using the k3d-tools node to gather environment information 
+[36mINFO[0m[0001] HostIP: using network gateway 172.25.0.1 address 
+[36mINFO[0m[0001] Starting cluster 'westie-dev-config'         
+[36mINFO[0m[0001] Starting servers...                          
+[36mINFO[0m[0001] Starting Node 'k3d-westie-dev-config-server-0' 
+[36mINFO[0m[0005] Starting agents...                           
+[36mINFO[0m[0005] Starting Node 'k3d-westie-dev-config-agent-2' 
+[36mINFO[0m[0005] Starting Node 'k3d-westie-dev-config-agent-1' 
+[36mINFO[0m[0005] Starting Node 'k3d-westie-dev-config-agent-0' 
+[36mINFO[0m[0009] Starting helpers...                          
+[36mINFO[0m[0009] Starting Node 'k3d-westie-dev-config-serverlb' 
+[36mINFO[0m[0016] Injecting records for hostAliases (incl. host.k3d.internal) and for 5 network members into CoreDNS configmap... 
+[36mINFO[0m[0018] Cluster 'westie-dev-config' created successfully! 
+[36mINFO[0m[0018] You can now use it like this:                
+kubectl cluster-info
+++ kubectl -n kube-system wait deployment.apps/metrics-server --for=condition=Available
+deployment.apps/metrics-server condition met
+++ kubectl -n kube-system wait apiservices v1beta1.metrics.k8s.io --for=condition=Available --timeout=5m
+apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io condition met
+
+real	0m24.511s
+user	0m0.038s
+sys	0m0.050s
+++ kubectl get apiservices
+NAME                                   SERVICE                      AVAILABLE   AGE
+v1.admissionregistration.k8s.io        Local                        True        40s
+v1.authentication.k8s.io               Local                        True        40s
+v1.apps                                Local                        True        40s
+v1.apiextensions.k8s.io                Local                        True        40s
+v1.                                    Local                        True        40s
+v1.autoscaling                         Local                        True        40s
+v2.autoscaling                         Local                        True        40s
+v1.authorization.k8s.io                Local                        True        40s
+v1.coordination.k8s.io                 Local                        True        40s
+v1.batch                               Local                        True        40s
+v1.certificates.k8s.io                 Local                        True        40s
+v1.discovery.k8s.io                    Local                        True        40s
+v1.events.k8s.io                       Local                        True        40s
+v1beta2.flowcontrol.apiserver.k8s.io   Local                        True        40s
+v1beta3.flowcontrol.apiserver.k8s.io   Local                        True        40s
+v1.networking.k8s.io                   Local                        True        40s
+v1.policy                              Local                        True        40s
+v1.scheduling.k8s.io                   Local                        True        40s
+v1.node.k8s.io                         Local                        True        40s
+v1.rbac.authorization.k8s.io           Local                        True        40s
+v1.storage.k8s.io                      Local                        True        40s
+v1beta1.storage.k8s.io                 Local                        True        40s
+v1.k3s.cattle.io                       Local                        True        38s
+v1.helm.cattle.io                      Local                        True        38s
+v1beta1.metrics.k8s.io                 kube-system/metrics-server   True        35s
+++ kubectl cluster-info
+[0;32mKubernetes control plane[0m is running at [0;33mhttps://master.127.0.0.1.nip.io:6445[0m
+[0;32mCoreDNS[0m is running at [0;33mhttps://master.127.0.0.1.nip.io:6445/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy[0m
+[0;32mMetrics-server[0m is running at [0;33mhttps://master.127.0.0.1.nip.io:6445/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy[0m
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+++ kubectl config get-contexts
+CURRENT   NAME                    CLUSTER                 AUTHINFO                      NAMESPACE
+*         k3d-westie-dev-config   k3d-westie-dev-config   admin@k3d-westie-dev-config   
+++ kubectl get nodes --output wide
+NAME                             STATUS   ROLES                  AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE   KERNEL-VERSION                      CONTAINER-RUNTIME
+k3d-westie-dev-config-agent-1    Ready    <none>                 34s   v1.26.4+k3s1   172.25.0.4    <none>        K3s dev    5.15.90.2-microsoft-standard-WSL2   containerd://1.6.19-k3s1
+k3d-westie-dev-config-server-0   Ready    control-plane,master   38s   v1.26.4+k3s1   172.25.0.2    <none>        K3s dev    5.15.90.2-microsoft-standard-WSL2   containerd://1.6.19-k3s1
+k3d-westie-dev-config-agent-2    Ready    <none>                 34s   v1.26.4+k3s1   172.25.0.3    <none>        K3s dev    5.15.90.2-microsoft-standard-WSL2   containerd://1.6.19-k3s1
+k3d-westie-dev-config-agent-0    Ready    <none>                 33s   v1.26.4+k3s1   172.25.0.5    <none>        K3s dev    5.15.90.2-microsoft-standard-WSL2   containerd://1.6.19-k3s1
+++ kubectl get ingress -A
+No resources found
++++ docker network inspect k3d-westie-dev-config
++++ jq '.[0].IPAM.Config[0].Subnet'
++++ tr -d '"'
+++ cidr_block=172.25.0.0/16
+++ cidr_base_addr=172.25.0.0
++++ echo 172.25.0.0
++++ awk -F. '{print $1,$2,255,0}' OFS=.
+++ ingress_first_addr=172.25.255.0
++++ echo 172.25.0.0
++++ awk -F. '{print $1,$2,255,255}' OFS=.
+++ ingress_last_addr=172.25.255.255
+++ ingress_range=172.25.255.0-172.25.255.255
+++ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.5/config/manifests/metallb-native.yaml
+namespace/metallb-system created
+customresourcedefinition.apiextensions.k8s.io/addresspools.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/bfdprofiles.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/bgpadvertisements.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/bgppeers.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/communities.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/ipaddresspools.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/l2advertisements.metallb.io created
+serviceaccount/controller created
+serviceaccount/speaker created
+role.rbac.authorization.k8s.io/controller created
+role.rbac.authorization.k8s.io/pod-lister created
+clusterrole.rbac.authorization.k8s.io/metallb-system:controller created
+clusterrole.rbac.authorization.k8s.io/metallb-system:speaker created
+rolebinding.rbac.authorization.k8s.io/controller created
+rolebinding.rbac.authorization.k8s.io/pod-lister created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker created
+secret/webhook-server-cert created
+service/webhook-service created
+deployment.apps/controller created
+daemonset.apps/speaker created
+validatingwebhookconfiguration.admissionregistration.k8s.io/metallb-webhook-configuration created
+++ cat
+++ kubectl apply -f -
+configmap/config created
++++ k3d kubeconfig write westie-dev-config
+++ export KUBECONFIG=/home/mwoodpatrick/.k3d/kubeconfig-westie-dev-config.yaml
+++ KUBECONFIG=/home/mwoodpatrick/.k3d/kubeconfig-westie-dev-config.yaml
+++ kubectl get nodes
+NAME                             STATUS   ROLES                  AGE   VERSION
+k3d-westie-dev-config-agent-1    Ready    <none>                 36s   v1.26.4+k3s1
+k3d-westie-dev-config-server-0   Ready    control-plane,master   40s   v1.26.4+k3s1
+k3d-westie-dev-config-agent-2    Ready    <none>                 36s   v1.26.4+k3s1
+k3d-westie-dev-config-agent-0    Ready    <none>                 35s   v1.26.4+k3s1

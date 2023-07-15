@@ -5,14 +5,18 @@
 set -x
 
 k3d --version
-k3d cluster create --config cluster-config.yml --wait
+k3d cluster create --config cluster-config.yaml --wait
 # k3d cluster create westie-dev --servers 1 --agents 3 --k3s-arg "--disable=traefik@server:0" --wait --volume /run/udev:/run/udev --volume /mnt/wsl/projects:/projects
 kubectl -n kube-system wait deployment.apps/metrics-server --for=condition=Available
 time kubectl -n kube-system wait apiservices v1beta1.metrics.k8s.io  --for=condition=Available --timeout=5m
 kubectl get apiservices
+kubectl api-resources
+kubectl get ingressclasses
+# kubectl describe ingressclass traefik
 kubectl cluster-info
 kubectl config get-contexts
 kubectl get nodes --output wide
+kubectl get ingress -A
 
 # determine loadbalancer ingress range
 cidr_block=$(docker network inspect k3d-westie-dev-config | jq '.[0].IPAM.Config[0].Subnet' | tr -d '"')

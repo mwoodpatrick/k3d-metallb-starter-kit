@@ -32,9 +32,12 @@ options:
       - arg: --tls-san=127.0.0.1.nip.io
         nodeFilters:
           - server:*
-      - arg: "--disable=traefik"
+      - arg: "disable"
         nodeFilters:
-          - server:*
+          - agent:*
+      - arg: "traefik"
+        nodeFilters:
+          - agent:*
   kubeconfig:
     updateDefaultKubeconfig: true
     switchCurrentContext: true
