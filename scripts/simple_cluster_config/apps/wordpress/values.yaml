@@ -1,0 +1,22 @@
+## @param wordpressUsername WordPress username
+##
+# global:
+# storageClass: ""
+    #wordpressUsername: "wp-admin"
+    #wordpressPassword: "wp4MrktOuse1982"
+wordpressEmail: "mwoodpatrick@gmail.com"
+wordpressFirstName: "Mark"
+wordpressLastName: "Wood-Patrick"
+wordpressBlogName: "Westie Development Blog"
+wordpressPlugins: [ "all" ]
+  # extraVolumes: []
+  # persistence:
+  # enabled: true
+  # storageClass: ""
+    # mariadb:
+  #   auth:
+    # rootPassword: "mysql_password"
+    # database: bitnami_wordpress
+    # username: wp_admin_user23
+    # password: "wp_admin_pwd#%"
+
