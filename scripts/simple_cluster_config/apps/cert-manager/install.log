@@ -1,0 +1,41 @@
+++ helm repo add jetstack https://charts.jetstack.io
+"jetstack" already exists with the same configuration, skipping
+++ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "portainer" chart repository
+...Successfully got an update from the "metallb" chart repository
+...Successfully got an update from the "k8sgpt" chart repository
+...Successfully got an update from the "go-skynet" chart repository
+...Successfully got an update from the "openebs" chart repository
+...Successfully got an update from the "jetstack" chart repository
+...Successfully got an update from the "prometheus-community" chart repository
+...Successfully got an update from the "bitnami" chart repository
+...Successfully got an update from the "stable" chart repository
+Update Complete. ⎈Happy Helming!⎈
+++ helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.12.0 --set installCRDs=true
+NAME: cert-manager
+LAST DEPLOYED: Sat Jul 15 07:07:01 2023
+NAMESPACE: cert-manager
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+cert-manager v1.12.0 has been deployed successfully!
+
+In order to begin issuing certificates, you will need to set up a ClusterIssuer
+or Issuer resource (for example, by creating a 'letsencrypt-staging' issuer).
+
+More information on the different types of issuers and how to configure them
+can be found in our documentation:
+
+https://cert-manager.io/docs/configuration/
+
+For information on how to configure cert-manager to automatically provision
+Certificates for Ingress resources, take a look at the `ingress-shim`
+documentation:
+
+https://cert-manager.io/docs/usage/ingress/
+++ --set prometheus.enabled=false ' '
+./deploy.sh: line 22: --set: command not found
+++ --set webhook.timeoutSeconds=4
+./deploy.sh: line 23: --set: command not found
