@@ -24,4 +24,8 @@ helm install \
 
 kubectl -n $CERT_MANAGER_NS get all
 
+kubectl apply -f clusterissuer.yaml
+
+kubectl get clusterissuer
+
 set +x 
