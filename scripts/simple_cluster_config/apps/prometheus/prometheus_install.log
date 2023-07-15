@@ -1,0 +1,141 @@
+++ export PROMETHEUS_NS=prometheus
+++ PROMETHEUS_NS=prometheus
+++ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+"prometheus-community" already exists with the same configuration, skipping
+++ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "metallb" chart repository
+...Successfully got an update from the "portainer" chart repository
+...Successfully got an update from the "k8sgpt" chart repository
+...Successfully got an update from the "openebs" chart repository
+...Successfully got an update from the "jetstack" chart repository
+...Successfully got an update from the "go-skynet" chart repository
+...Successfully got an update from the "prometheus-community" chart repository
+...Successfully got an update from the "bitnami" chart repository
+...Successfully got an update from the "stable" chart repository
+Update Complete. ⎈Happy Helming!⎈
+++ helm install -n prometheus --create-namespace -f prometheus.yaml prometheus prometheus-community/prometheus
+NAME: prometheus
+LAST DEPLOYED: Sat Jul 15 11:22:21 2023
+NAMESPACE: prometheus
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+The Prometheus server can be accessed via port 80 on the following DNS name from within your cluster:
+prometheus-server.prometheus.svc.cluster.local
+
+
+Get the Prometheus server URL by running these commands in the same shell:
+  export POD_NAME=$(kubectl get pods --namespace prometheus -l "app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=prometheus" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace prometheus port-forward $POD_NAME 9090
+
+
+The Prometheus alertmanager can be accessed via port 9093 on the following DNS name from within your cluster:
+prometheus-alertmanager.prometheus.svc.cluster.local
+
+
+Get the Alertmanager URL by running these commands in the same shell:
+  export POD_NAME=$(kubectl get pods --namespace prometheus -l "app.kubernetes.io/name=alertmanager,app.kubernetes.io/instance=prometheus" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace prometheus port-forward $POD_NAME 9093
+#################################################################################
+######   WARNING: Pod Security Policy has been disabled by default since    #####
+######            it deprecated after k8s 1.25+. use                        #####
+######            (index .Values "prometheus-node-exporter" "rbac"          #####
+###### .          "pspEnabled") with (index .Values                         #####
+######            "prometheus-node-exporter" "rbac" "pspAnnotations")       #####
+######            in case you still need it.                                #####
+#################################################################################
+
+
+The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
+prometheus-prometheus-pushgateway.prometheus.svc.cluster.local
+
+
+Get the PushGateway URL by running these commands in the same shell:
+  export POD_NAME=$(kubectl get pods --namespace prometheus -l "app=prometheus-pushgateway,component=pushgateway" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace prometheus port-forward $POD_NAME 9091
+
+For more information on running Prometheus, visit:
+https://prometheus.io/
+++ helm install -n prometheus --create-namespace -f prometheus-stack.yaml prometheus-stack prometheus-community/kube-prometheus-stack
+NAME: prometheus-stack
+LAST DEPLOYED: Sat Jul 15 11:22:26 2023
+NAMESPACE: prometheus
+STATUS: deployed
+REVISION: 1
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace prometheus get pods -l "release=prometheus-stack"
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
+++ kubectl -n prometheus get all
+NAME                                                         READY   STATUS    RESTARTS   AGE
+pod/prometheus-prometheus-node-exporter-9r5dv                1/1     Running   0          29s
+pod/prometheus-prometheus-node-exporter-7b64c                1/1     Running   0          29s
+pod/prometheus-prometheus-node-exporter-w8jdc                1/1     Running   0          29s
+pod/prometheus-prometheus-node-exporter-bmsxz                1/1     Running   0          29s
+pod/prometheus-server-79dcfdf47d-24xlv                       1/2     Running   0          29s
+pod/prometheus-alertmanager-0                                1/1     Running   0          29s
+pod/prometheus-prometheus-pushgateway-75986b9c9f-zgbqs       1/1     Running   0          29s
+pod/prometheus-kube-state-metrics-698464d9bb-ckcvl           1/1     Running   0          29s
+pod/prometheus-stack-prometheus-node-exporter-5xfbp          0/1     Pending   0          10s
+pod/prometheus-stack-prometheus-node-exporter-s2jrj          0/1     Pending   0          10s
+pod/prometheus-stack-prometheus-node-exporter-9wddx          0/1     Pending   0          10s
+pod/prometheus-stack-prometheus-node-exporter-4zk5k          0/1     Pending   0          10s
+pod/prometheus-stack-kube-state-metrics-84676b6cc5-n4nwc     0/1     Running   0          10s
+pod/prometheus-stack-kube-prom-operator-8676bb476d-2phwk     1/1     Running   0          10s
+pod/prometheus-stack-grafana-7f97c5b7f5-fnxpp                2/3     Running   0          10s
+pod/prometheus-prometheus-stack-kube-prom-prometheus-0       1/2     Running   0          8s
+pod/alertmanager-prometheus-stack-kube-prom-alertmanager-0   2/2     Running   0          8s
+
+NAME                                                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+service/prometheus-alertmanager-headless            ClusterIP   None            <none>        9093/TCP                     29s
+service/prometheus-server                           ClusterIP   10.43.203.65    <none>        80/TCP                       29s
+service/prometheus-alertmanager                     ClusterIP   10.43.171.179   <none>        9093/TCP                     29s
+service/prometheus-prometheus-pushgateway           ClusterIP   10.43.153.246   <none>        9091/TCP                     29s
+service/prometheus-prometheus-node-exporter         ClusterIP   10.43.162.96    <none>        9100/TCP                     29s
+service/prometheus-kube-state-metrics               ClusterIP   10.43.98.234    <none>        8080/TCP                     29s
+service/prometheus-stack-grafana                    ClusterIP   10.43.200.92    <none>        80/TCP                       10s
+service/prometheus-stack-prometheus-node-exporter   ClusterIP   10.43.119.14    <none>        9100/TCP                     10s
+service/prometheus-stack-kube-prom-prometheus       ClusterIP   10.43.246.78    <none>        9090/TCP,8080/TCP            10s
+service/prometheus-stack-kube-state-metrics         ClusterIP   10.43.200.231   <none>        8080/TCP                     10s
+service/prometheus-stack-kube-prom-alertmanager     ClusterIP   10.43.172.103   <none>        9093/TCP,8080/TCP            10s
+service/prometheus-stack-kube-prom-operator         ClusterIP   10.43.211.37    <none>        443/TCP                      10s
+service/alertmanager-operated                       ClusterIP   None            <none>        9093/TCP,9094/TCP,9094/UDP   8s
+service/prometheus-operated                         ClusterIP   None            <none>        9090/TCP                     8s
+
+NAME                                                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+daemonset.apps/prometheus-prometheus-node-exporter         4         4         4       4            4           kubernetes.io/os=linux   29s
+daemonset.apps/prometheus-stack-prometheus-node-exporter   4         4         0       4            0           kubernetes.io/os=linux   10s
+
+NAME                                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/prometheus-server                     0/1     1            0           29s
+deployment.apps/prometheus-prometheus-pushgateway     1/1     1            1           29s
+deployment.apps/prometheus-kube-state-metrics         1/1     1            1           29s
+deployment.apps/prometheus-stack-kube-state-metrics   0/1     1            0           10s
+deployment.apps/prometheus-stack-grafana              0/1     1            0           10s
+deployment.apps/prometheus-stack-kube-prom-operator   1/1     1            1           10s
+
+NAME                                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/prometheus-server-79dcfdf47d                     1         1         0       29s
+replicaset.apps/prometheus-prometheus-pushgateway-75986b9c9f     1         1         1       29s
+replicaset.apps/prometheus-kube-state-metrics-698464d9bb         1         1         1       29s
+replicaset.apps/prometheus-stack-kube-state-metrics-84676b6cc5   1         1         0       10s
+replicaset.apps/prometheus-stack-grafana-7f97c5b7f5              1         1         0       10s
+replicaset.apps/prometheus-stack-kube-prom-operator-8676bb476d   1         1         1       10s
+
+NAME                                                                    READY   AGE
+statefulset.apps/prometheus-alertmanager                                1/1     29s
+statefulset.apps/prometheus-prometheus-stack-kube-prom-prometheus       0/1     8s
+statefulset.apps/alertmanager-prometheus-stack-kube-prom-alertmanager   1/1     8s
++++ kubectl get pods -n prometheus -l app.kubernetes.io/name=prometheus-pushgateway -o 'jsonpath={.items[0].metadata.name}'
+++ export PROMETHEUS_POD_NAME=prometheus-prometheus-pushgateway-75986b9c9f-zgbqs
+++ PROMETHEUS_POD_NAME=prometheus-prometheus-pushgateway-75986b9c9f-zgbqs
+++ echo 'Prometheus pod name: prometheus-prometheus-pushgateway-75986b9c9f-zgbqs'
+Prometheus pod name: prometheus-prometheus-pushgateway-75986b9c9f-zgbqs
+++ echo 'to view push metrics use: kubectl --namespace prometheus  port-forward prometheus-prometheus-pushgateway-75986b9c9f-zgbqs 9091'
+to view push metrics use: kubectl --namespace prometheus  port-forward prometheus-prometheus-pushgateway-75986b9c9f-zgbqs 9091
+++ echo 'to view prometheus metrics: kubectl --namespace prometheus port-forward prometheus-prometheus-pushgateway-75986b9c9f-zgbqs 9090'
+to view prometheus metrics: kubectl --namespace prometheus port-forward prometheus-prometheus-pushgateway-75986b9c9f-zgbqs 9090
+++ set +x
