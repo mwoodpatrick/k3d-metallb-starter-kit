@@ -2,18 +2,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    ingress.kubernetes.io/ssl-redirect: "false"
-  name: wordpress
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: nginx-ingress2
 spec:
   ingressClassName: nginx
   rules:
-    - host: wp.westie.dev.to
+    - host: westie.dev.to
       http:
         paths:
-        - path: /
+        - path: /nginx(/|$)(.*)
           pathType: Prefix
           backend:
             service:
-              name: wordpress
+              name: nginx-service
               port: 
                 number: 80
