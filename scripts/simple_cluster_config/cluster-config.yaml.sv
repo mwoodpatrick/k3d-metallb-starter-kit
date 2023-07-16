@@ -6,7 +6,7 @@ metadata:
 servers: 1
 agents: 3
 kubeAPI:
-  host: "master.127.0.0.1.nip.io"
+  host: "master.westie.dev"
   hostIP: "127.0.0.1"
   hostPort: "6445"
 image: docker.io/rancher/k3s:v1.26.4-k3s1
@@ -23,21 +23,21 @@ ports:
   - port: 8080:80
     nodeFilters:
       - loadbalancer
+  - port: 8443:443
+    nodeFilters:
+      - loadbalancer
 options:
   k3d:
     wait: true
     timeout: "60s"
   k3s:
     extraArgs:
-      - arg: --tls-san=127.0.0.1.nip.io
+      - arg: --tls-san=westie.dev
         nodeFilters:
           - server:*
-      - arg: "disable"
+      - arg: "--disable=traefik"
         nodeFilters:
-          - agent:*
-      - arg: "traefik"
-        nodeFilters:
-          - agent:*
+          - server:*
   kubeconfig:
     updateDefaultKubeconfig: true
     switchCurrentContext: true

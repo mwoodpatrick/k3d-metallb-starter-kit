@@ -16,7 +16,11 @@ kubectl get ingressclasses
 kubectl cluster-info
 kubectl config get-contexts
 kubectl get nodes --output wide
-kubectl get ingress -A
+kubectl get ingress -Akubectl get node          # or kubectl get no
+kubectl get storageclass  # or kubectl get sc
+kubectl get namespace     # or kubectl get ns
+kubectl get pod -A
+kubectl get svc -A
 
 # determine loadbalancer ingress range
 cidr_block=$(docker network inspect k3d-westie-dev-config | jq '.[0].IPAM.Config[0].Subnet' | tr -d '"')
