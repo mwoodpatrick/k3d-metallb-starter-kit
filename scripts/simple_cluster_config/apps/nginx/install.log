@@ -1,0 +1,70 @@
+++ kubectl apply -f nginx.yaml
+deployment.apps/nginx-deployment created
+service/nginx-service created
+ingress.networking.k8s.io/nginx-ingress unchanged
+++ ip=
+++ '[' -z ']'
+++ echo 'Waiting for external IP'
+Waiting for external IP
++++ kubectl get ingress/nginx-ingress '--template={{range .status.loadBalancer.ingress}}{{.ip}}{{end}}'
+++ ip=172.23.0.2172.23.0.3172.23.0.4172.23.0.5
+++ '[' -z 172.23.0.2172.23.0.3172.23.0.4172.23.0.5 ']'
+++ '[' -z 172.23.0.2172.23.0.3172.23.0.4172.23.0.5 ']'
+++ echo 'Found external IP: 172.23.0.2172.23.0.3172.23.0.4172.23.0.5'
+Found external IP: 172.23.0.2172.23.0.3172.23.0.4172.23.0.5
+++ docker ps
+CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS          PORTS                                                                                                NAMES
+32392bc2b534   ghcr.io/k3d-io/k3d-proxy:5.5.1   "/bin/sh -c nginx-pr…"   25 minutes ago   Up 25 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp, 127.0.0.1:6445->6443/tcp   k3d-westie-dev-config-serverlb
+e451f97b73f3   rancher/k3s:v1.26.4-k3s1         "/bin/k3s agent"         25 minutes ago   Up 25 minutes                                                                                                        k3d-westie-dev-config-agent-2
+6f910094dac5   rancher/k3s:v1.26.4-k3s1         "/bin/k3s agent"         25 minutes ago   Up 25 minutes                                                                                                        k3d-westie-dev-config-agent-1
+0b5400ef02c2   rancher/k3s:v1.26.4-k3s1         "/bin/k3s agent"         25 minutes ago   Up 25 minutes                                                                                                        k3d-westie-dev-config-agent-0
+bbc95a2fcd80   rancher/k3s:v1.26.4-k3s1         "/bin/k3s server --t…"   25 minutes ago   Up 25 minutes                                                                                                        k3d-westie-dev-config-server-0
+++ kubectl get nodes
+NAME                             STATUS   ROLES                  AGE   VERSION
+k3d-westie-dev-config-agent-0    Ready    <none>                 25m   v1.26.4+k3s1
+k3d-westie-dev-config-server-0   Ready    control-plane,master   25m   v1.26.4+k3s1
+k3d-westie-dev-config-agent-2    Ready    <none>                 25m   v1.26.4+k3s1
+k3d-westie-dev-config-agent-1    Ready    <none>                 25m   v1.26.4+k3s1
+++ kubectl get svc
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+kubernetes      ClusterIP   10.43.0.1      <none>        443/TCP   25m
+nginx-service   ClusterIP   10.43.28.129   <none>        80/TCP    1s
+++ kubectl get ingress/nginx
+NAME    CLASS    HOSTS   ADDRESS   PORTS   AGE
+nginx   <none>   *                 80      17m
+++ curl --fail localhost/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   190    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (22) The requested URL returned error: 503
+++ sleep 10
+++ curl --fail localhost/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   612  100   612    0     0   220k      0 --:--:-- --:--:-- --:--:--  298k
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+++ set +x
