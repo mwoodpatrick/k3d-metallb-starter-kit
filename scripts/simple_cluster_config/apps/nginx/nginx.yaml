@@ -39,16 +39,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
   name: nginx-ingress
 spec:
   ingressClassName: nginx
   rules:
-    - host: westie.dev.to
+    - host: nginx.westie.dev.to
       http:
         paths:
-        - path: /nginx(/|$)(.*)
+        - path: /
           pathType: Prefix
           backend:
             service:
