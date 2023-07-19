@@ -17,7 +17,9 @@ export VERSION_KUBE_DASHBOARD=v2.7.0
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/${VERSION_KUBE_DASHBOARD}/aio/deploy/recommended.yaml
 
 kubectl create -f dashboard.admin-user.yaml -f dashboard.admin-user-role.yaml
-kubectl -n kubernetes-dashboard describe secret admin-user-token | grep ^token
+# kubectl -n kubernetes-dashboard describe secret admin-user-token | grep ^token
+kubectl -n kubernetes-dashboard create token admin-user
+kubectl proxy
 
 echo http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 
