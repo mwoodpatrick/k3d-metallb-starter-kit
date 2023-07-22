@@ -9,10 +9,13 @@ wordpressFirstName: "Mark"
 wordpressLastName: "Wood-Patrick"
 wordpressBlogName: "Westie Development Blog"
 wordpressPlugins: [ "all" ]
+# persistence:
+#  enabled: true
+#  storageClass: "openebs-hostpath"
+#  size: "20Gi"
+    # dataSource: "" # Custom PVC data source
+
   # extraVolumes: []
-  # persistence:
-  # enabled: true
-  # storageClass: ""
     # mariadb:
   #   auth:
     # rootPassword: "mysql_password"
