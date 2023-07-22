@@ -2,8 +2,8 @@
 ##
 # global:
 # storageClass: ""
-    #wordpressUsername: "wp-admin"
-    #wordpressPassword: "wp4MrktOuse1982"
+wordpressUsername: "wp-admin"
+wordpressPassword: "wp4MrktOuse1982#@"
 wordpressEmail: "mwoodpatrick@gmail.com"
 wordpressFirstName: "Mark"
 wordpressLastName: "Wood-Patrick"
