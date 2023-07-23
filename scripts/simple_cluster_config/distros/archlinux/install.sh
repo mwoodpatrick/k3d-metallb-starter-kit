@@ -1,5 +1,6 @@
 # install archlinux distro
 
+# https://stackoverflow.com/questions/47691479/listing-all-resources-in-a-namespace
 function kubectl_getall_resources {
   for i in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
     echo "Resource:" $i
@@ -27,7 +28,12 @@ function kubectl_getall {
     unset IFS
     
     # --show-kind is enabled implicitly
-    kubectl -n $1 get "$NAMES" -o wide --show-kind
+    if [ -z "$1" ]
+    then
+        kubectl get "$NAMES" -o wide --show-kind
+    else
+        kubectl -n $1 get "$NAMES" -o wide --show-kind
+    fi
 }
 
 export ARCHLINUX_NS=archlinux
