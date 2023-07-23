@@ -1,0 +1,9 @@
+node_modules
+dist
+build
+*.log
+*.sv*
+save
+.slack
+pnpm-lock.yaml
+migrations.json
