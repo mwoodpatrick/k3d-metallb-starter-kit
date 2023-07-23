@@ -42,6 +42,8 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+            - name: project-directory
+              mountPath: /projects
           ports:
             - containerPort: 80
           command: ["/bin/sleep", "3650d"]
@@ -53,3 +55,7 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: data-pvc
+        - name: project-directory
+          hostPath:
+            path: /projects
+            type: Directory
