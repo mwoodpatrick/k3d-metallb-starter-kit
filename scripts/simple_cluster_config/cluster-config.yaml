@@ -2,7 +2,7 @@
 apiVersion: k3d.io/v1alpha5
 kind: Simple
 metadata:
-  name: westie-dev-config
+  name: westie-dev
 servers: 1
 agents: 3
 kubeAPI:
