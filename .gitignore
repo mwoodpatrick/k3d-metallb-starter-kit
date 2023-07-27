@@ -7,3 +7,4 @@ save
 .slack
 pnpm-lock.yaml
 migrations.json
+*.token
