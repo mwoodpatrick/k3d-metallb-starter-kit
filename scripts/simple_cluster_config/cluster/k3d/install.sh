@@ -21,4 +21,6 @@ time kubectl -n kube-system wait apiservices v1beta1.metrics.k8s.io  --for=condi
 
 set +x
 
+. $clusterdir/../../kube-proxy/install.sh
+
 . $clusterdir/test.sh
