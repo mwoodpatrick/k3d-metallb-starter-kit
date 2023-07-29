@@ -5,11 +5,11 @@
 set -x
 
 # determine loadbalancer ingress range
-export cidr_block=$(docker network inspect $CLUSTER_NAME | jq '.[0].IPAM.Config[0].Subnet' | tr -d '"')
-export cidr_base_addr=${cidr_block%???}
-export ingress_first_addr=$(echo $cidr_base_addr | awk -F'.' '{print $1,$2,255,0}' OFS='.')
-export ingress_last_addr=$(echo $cidr_base_addr | awk -F'.' '{print $1,$2,255,255}' OFS='.')
-export ingress_range=$ingress_first_addr-$ingress_last_addr
+cidr_block=$(docker network inspect $CLUSTER_NAME | jq '.[0].IPAM.Config[0].Subnet' | tr -d '"')
+cidr_base_addr=${cidr_block%???}
+ingress_first_addr=$(echo $cidr_base_addr | awk -F'.' '{print $1,$2,255,0}' OFS='.')
+ingress_last_addr=$(echo $cidr_base_addr | awk -F'.' '{print $1,$2,255,255}' OFS='.')
+ingress_range=$ingress_first_addr-$ingress_last_addr
 
 # deploy metallb 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.5/config/manifests/metallb-native.yaml

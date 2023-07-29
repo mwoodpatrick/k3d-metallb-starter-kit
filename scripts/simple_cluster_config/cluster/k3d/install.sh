@@ -4,9 +4,12 @@
 
 set -x
 
+clusterdir=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
+
+export K3D_CLUSTER_NAME=westie-dev
+export CLUSTER_NAME=k3d-${K3D_CLUSTER_NAME}
 k3d --version
-k3d cluster create $CLUSTER_NAME --config cluster-config.yaml --wait
-export CLUSTER_NAME=k3d-westie-dev
+k3d cluster create $K3D_CLUSTER_NAME --config $clusterdir/cluster-config.yaml --wait
 # k3d cluster create westie-dev --servers 1 --agents 3 --k3s-arg "--disable=traefik@server:0" --wait --volume /run/udev:/run/udev --volume /mnt/wsl/projects:/projects
 kubectl config get-contexts
 kubectl -n kube-system wait deployment.apps/metrics-server --for=condition=Available
@@ -24,7 +27,7 @@ kubectl get namespace     # or kubectl get ns
 kubectl get pod -A
 
 # set kubeconfig to access the k8s context
-export KUBECONFIG=$(k3d kubeconfig write $CLUSTER_NAME)
+# export KUBECONFIG=$(k3d kubeconfig write $K3D_CLUSTER_NAME)
 
 # validate the cluster master and worker nodes
 
