@@ -1,1 +1,1 @@
-kubectl delete namespace $NS
+kubectl delete namespace $WORDPRESS_NS
