@@ -4,3 +4,5 @@ mkdir -p logs
 . apps/dashboard/install.sh 2>&1 | tee logs/install_apps_dashboard.log
 . ingress/nginx/install.sh 2>&1 | tee logs/install_ingress_nginx.log
 . service/load_balancer/minikube/install.sh 2>&1 | tee logs/install_load_balancer_minikube.log
+. storage/openebs/install.sh 2>&1 | tee logs/install_openebs.log
+. apps/wordpress/install.sh 2>&1 | tee logs/install_wordpress.log
