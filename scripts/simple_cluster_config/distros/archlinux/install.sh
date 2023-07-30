@@ -1,5 +1,7 @@
 # install archlinux distro
 
+archdir=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
+
 # https://stackoverflow.com/questions/47691479/listing-all-resources-in-a-namespace
 function kubectl_getall_resources {
   for i in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
@@ -37,7 +39,7 @@ function kubectl_getall {
 }
 
 export ARCHLINUX_NS=archlinux
-kubectl apply -f arch_linux.yaml
+kubectl apply -f $archdir/arch_linux.yaml
 export ARCHLINUX_POD_NAME=`kubectl -n $ARCHLINUX_NS get pods -l app=arch  -o jsonpath='{.items[*].metadata.name}'`
 # kubectl -n $ARCHLINUX_NS get all
 # kubectl -n $ARCHLINUX_NS get pvc

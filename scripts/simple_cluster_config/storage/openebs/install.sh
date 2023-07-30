@@ -21,7 +21,7 @@ mkdir -p /mnt/wsl/projects/data/openebs/local-hostpath
 # make openebs local-hostpath the default (uses /mnt/wsl/projects/data/openebs/local-hostpath)
 # https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
 kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
-kubectl patch storageclass local-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
 kubectl get sc
 echo to monitor changes use watch -d kubectl -n openebs get all

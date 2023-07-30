@@ -12,3 +12,4 @@ mkdir -p logs
 . service/load_balancer/minikube/install.sh 2>&1 | tee logs/install_load_balancer_minikube.log
 . storage/openebs/install.sh 2>&1 | tee logs/install_openebs.log
 . apps/wordpress/install.sh 2>&1 | tee logs/install_wordpress.log
+. distros/archlinux/install.sh 2>&1 | tee logs/install_archlinux.log
