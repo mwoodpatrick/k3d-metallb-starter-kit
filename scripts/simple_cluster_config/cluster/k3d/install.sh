@@ -4,6 +4,8 @@
 
 set -x
 
+export K3D_FIX_DNS=1
+
 clusterdir=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
 
 if [ -z ${K3D_CLUSTER_NAME+x} ]; 

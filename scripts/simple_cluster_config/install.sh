@@ -6,6 +6,7 @@ rm -rf logs
 mkdir -p logs
 
 . cluster/k3d/install.sh 2>&1 | tee logs/install_cluster_k3d.log
+# . apps/dns-test/test.sh
 . load_balancer/metallb/install.sh 2>&1 | tee logs/install_load_balancer_metallb.log
 . apps/dashboard/install.sh 2>&1 | tee logs/install_apps_dashboard.log
 . ingress/nginx/install.sh 2>&1 | tee logs/install_ingress_nginx.log
