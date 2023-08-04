@@ -16,6 +16,7 @@ mkdir -p logs
 . storage/openebs/install.sh 2>&1 | tee logs/install_openebs.log
 # k get sc
 . apps/wordpress/install.sh 2>&1 | tee logs/install_wordpress.log
+. apps/kubeapps/install.sh 2>&1 | tee logs/install_kubeapps.log
 # access http://wp.westie.dev.to see values.yaml for username & paasword
 # cat apps/wordpress/values.yaml
 . distros/archlinux/install.sh 2>&1 | tee logs/install_archlinux.log

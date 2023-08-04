@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+  name: kubeapps
+  namespace: kubeapps
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kubeapps.westie.dev.to
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: kubeapps
+              port: 
+                number: 80
