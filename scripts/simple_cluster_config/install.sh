@@ -23,3 +23,4 @@ mkdir -p logs
 # watch kubectl -n archlinux get all
 # kubectl api-resources
 
+. apps/mariadb/install.sh h 2>&1 | tee logs/install_mariadb.log
