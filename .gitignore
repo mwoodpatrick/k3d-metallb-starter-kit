@@ -8,3 +8,4 @@ save
 pnpm-lock.yaml
 migrations.json
 *.token
+root_password
