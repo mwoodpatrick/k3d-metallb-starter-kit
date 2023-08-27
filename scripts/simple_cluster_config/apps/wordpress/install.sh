@@ -4,8 +4,13 @@ WORDPRESS_NS=wordpress
 kubectl create namespace $WORDPRESS_NS
 helm show values bitnami/wordpress 
 # helm install wordpress bitnami/wordpress -n $WORDPRESS_NS --create-namespace --set serviceType=NodePort --set  global.storageClass=local-path --values values.yaml 
+
+echo "installing wordpress ..."
 helm install wordpress bitnami/wordpress -n $WORDPRESS_NS --create-namespace --set serviceType=NodePort --set  global.storageClass=openebs-hostpath --values $wpdir/values.yaml 
 kubectl apply -f $wpdir/wordpress_ingress.yaml
+kubectl -n wordpress wait --for=condition=ready pod -l app.kubernetes.io/instance=wordpress
+kubectl -n wordpress wait --for=condition=ready pod -l app.kubernetes.io/name=mariadb
+echo "wordpress installed access at http://wp.westie.dev.to/"
 
 WORDPRESS_POD_NAME=`kubectl -n $WORDPRESS_NS get pods --selector=app.kubernetes.io/name=wordpress -o jsonpath='{.items[*].metadata.name}'`
 echo WORDPRESS_POD_NAME=$WORDPRESS_POD_NAME

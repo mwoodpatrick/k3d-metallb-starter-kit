@@ -12,7 +12,12 @@ ingress_last_addr=$(echo $cidr_base_addr | awk -F'.' '{print $1,$2,255,255}' OFS
 ingress_range=$ingress_first_addr-$ingress_last_addr
 
 # deploy metallb 
+echo "install load balancer"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.5/config/manifests/metallb-native.yaml
+
+kubectl -n metallb-system wait --for=condition=ready pod -l app=metallb
+
+echo "load balancer installed"
 
 # configure metallb ingress address range
 cat <<EOF | kubectl apply -f -

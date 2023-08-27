@@ -2,6 +2,8 @@ set -x
 dashboard_dir=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
 # https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 export VERSION_KUBE_DASHBOARD=v2.7.0
+
+echo "install dashboard ..."
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/${VERSION_KUBE_DASHBOARD}/aio/deploy/recommended.yaml
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 
@@ -15,6 +17,8 @@ kubectl apply -f $dashboard_dir/dashboard.admin-user-role.yaml
 kubectl -n kubernetes-dashboard create token admin-user > $dashboard_dir/admin-user.token
 
 echo "token in: $dashboard_dir/admin-user.token"
+
+echo "dashboard installed"
 
 # https://www.linuxtechi.com/how-to-install-kubernetes-dashboard/
 

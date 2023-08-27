@@ -1,9 +1,15 @@
 # [OpenEBS](https://openebs.io/)
 # https://openebs.github.io/charts/openebs-operator.yaml
 set -x
+
+echo "install openebs storage ..."
 helm repo add openebs https://openebs.github.io/charts
 helm repo update
 helm install openebs --namespace openebs openebs/openebs --create-namespace
+kubectl -n openebs wait --for=condition=ready pod -l app=openebs
+
+echo "openebs storage installed"
+
 kubectl get pods -n openebs
 
 # If you would like to change the default values for any of the configurable parameters 
