@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kuard
+  namespace: cert-manager-acme
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    # cert-manager.io/issuer: "letsencrypt-staging"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - cert-manager-acme.example.com
+    secretName: acme-ingress-tls
+      # secretName: acme-ingress-tls-2xn67
+  rules:
+  - host: cert-manager-acme.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kuard
+            port:
+              number: 80
