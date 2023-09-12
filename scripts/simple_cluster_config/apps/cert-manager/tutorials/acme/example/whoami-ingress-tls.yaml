@@ -4,15 +4,14 @@ metadata:
   name: whoami
   namespace: cert-manager-acme
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "selfsigned-issuer"
     # cert-manager.io/issuer: "letsencrypt-staging"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - cert-manager-acme.example.com
-    secretName: acme-ingress-tls
-      # secretName: acme-ingress-tls-2xn67
+    - whoami.example.com
+    secretName: whoami-ingress-tls
   rules:
   - host: whoami.example.com
     http:

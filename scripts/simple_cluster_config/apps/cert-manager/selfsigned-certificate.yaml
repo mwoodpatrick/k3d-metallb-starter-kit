@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-test-certificate
+spec:
+  secretName: my-test-certificate
+  dnsNames:
+# - "*.[namespace].svc.cluster.local"
+# - "*.[namespace]"
+    - "*.kube-test.svc.cluster.local"
+    - "*.kube-test"
+  issuerRef:
+# issuer-name
+    name: "selfsigned-issuer"

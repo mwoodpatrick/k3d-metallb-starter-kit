@@ -1,0 +1,24 @@
+USER-SUPPLIED VALUES:
+USER-SUPPLIED VALUES: null
+global:
+  storageClass: openebs-hostpath
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-issuer
+  certManager: true
+  enabled: true
+  extraTls:
+  - hosts:
+    - wp3.westie.dev.to
+    secretName: wordpress.local-tls
+  hostname: wp3.westie.dev.to
+  ingressClassName: nginx
+serviceType: ClusterIP
+wordpressBlogName: Westie Development Blog
+wordpressEmail: mwoodpatrick@gmail.com
+wordpressFirstName: Mark
+wordpressLastName: Wood-Patrick
+wordpressPassword: wp4MrktOuse1982#@
+wordpressPlugins:
+- all
+wordpressUsername: wp-admin
