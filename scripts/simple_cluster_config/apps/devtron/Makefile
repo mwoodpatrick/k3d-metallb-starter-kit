@@ -9,14 +9,15 @@ repo_list:
 	helm repo list
 
 install:
-	helm install ${APP} devtron/devtron-operator --create-namespace --namespace ${DEVTRON_NS} --values ${ROOT_DIR}/values.yaml
-	kubectl -n ${DEVTRON_NS} wait --for=condition=ready pod -l app=${APP}
+	helm install devtron devtron/devtron-operator --create-namespace --namespace ${DEVTRON_NS} --values ${ROOT_DIR}/values.yaml
+
+	kubectl -n ${DEVTRON_NS} wait --for=condition=ready pod -l app=devtron
 
 upgrade:
 	helm upgrade ${APP} devtron/devtron-operator --namespace ${DEVTRON_NS} --values ${ROOT_DIR}/values.yaml
 
 uninstall:
-	kubectl delete ns ${DEVTRON_NS} ${DEVTRON_NS} devtron-ci argo
+	kubectl delete --wait=true ns ${DEVTRON_NS} devtron-cd devtron-ci argo
 
 get_values:
 	helm -n ${DEVTRON_NS} get values devtron
