@@ -1,0 +1,22 @@
+components:
+  devtron:
+    ingress:
+      enabled: true
+      className: "nginx"
+      host: "devtron.westie.dev.to" 
+      pathType: "Prefix"
+      tls:
+        - hosts:
+          - "devtron.westie.dev.to"
+      secretName: devtron-ingress-tls
+
+        #      tls: ":[{\"hosts\":[\"devtron.westie.dev.to\"],\"secretName\":\"devtron-ingress-tls\"}]"
+        #
+        # annotations: |+
+        #ingress.kubernetes.io:
+        #ssl-redirect: "false"
+cert-manager.io:
+  cluster-issuer: "selfsigned-issuer"
+installer.modules: "{cicd}" 
+argo-cd:
+  enabled: true
