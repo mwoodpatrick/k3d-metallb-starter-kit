@@ -1,20 +1,17 @@
+#!/usr/bin/env bash
+echo "got: $0"
 set +x
-wpdir=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
+scriptpath=$(realpath "${BASH_SOURCE[0]}")
+scriptdir=$(dirname "$scriptpath")
+echo "scriptdir: $scriptdir"
 DEVTRON_NS=devtroncd
 
 helm repo add devtron https://helm.devtron.ai
 
 helm repo list
 
-# helm install devtron devtron/devtron-operator --create-namespace --namespace $DEVTRON_NS
 helm install devtron devtron/devtron-operator --create-namespace --namespace $DEVTRON_NS \
-    --set components.devtron.ingress.enabled=true \
-    --set components.devtron.ingress.className=nginx \
-    --set components.devtron.ingress.host=devtron.westie.dev.to \
-    --set components.devtron.ingress.pathType=Prefix \
-    --set components.devtron.ingress.tls=???? \
-    --set installer.modules={cicd} \
-    --set argo-cd.enabled=true
+    --values "$scriptdir"/values.yaml
 
 kubectl -n $DEVTRON_NS wait --for=condition=ready pod -l app=devtron
 

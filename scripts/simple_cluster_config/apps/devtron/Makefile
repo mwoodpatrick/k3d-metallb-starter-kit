@@ -1,0 +1,30 @@
+ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+APP:=devtron
+DEVTRON_NS:=devtroncd
+
+repo_add:
+	helm repo add ${APP} https://helm.devtron.ai
+
+repo_list:
+	helm repo list
+
+install:
+	helm install ${APP} devtron/devtron-operator --create-namespace --namespace ${DEVTRON_NS} --values ${ROOT_DIR}/values.yaml
+	kubectl -n ${DEVTRON_NS} wait --for=condition=ready pod -l app=${APP}
+
+upgrade:
+	helm upgrade ${APP} devtron/devtron-operator --namespace ${DEVTRON_NS} --values ${ROOT_DIR}/values.yaml
+
+uninstall:
+	kubectl delete ns ${DEVTRON_NS} ${DEVTRON_NS} devtron-ci argo
+
+get_values:
+	helm -n ${DEVTRON_NS} get values devtron
+
+get_password:
+	kubectl -n ${DEVTRON_NS} get secret devtron-secret -o jsonpath='{.data.ADMIN_PASSWORD}' | base64 -d # get admin password
+
+get_url:
+	kubectl -n ${DEVTRON_NS} get svc devtron-service -o jsonpath='{.status.loadBalancer.ingress}' # get URL
+
+
