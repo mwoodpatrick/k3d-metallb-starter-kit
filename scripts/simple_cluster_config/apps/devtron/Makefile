@@ -10,8 +10,11 @@ repo_list:
 
 install:
 	helm install devtron devtron/devtron-operator --create-namespace --namespace ${DEVTRON_NS} --values ${ROOT_DIR}/values.yaml
+	kubectl -n ${DEVTRON_NS} wait --timeout=3m --for=condition=ready pod -l app=devtron
+	echo "run make get_password"
 
-	kubectl -n ${DEVTRON_NS} wait --for=condition=ready pod -l app=devtron
+watch:
+	watch kubectl -n ${DEVTRON_NS} get pods
 
 upgrade:
 	helm upgrade ${APP} devtron/devtron-operator --namespace ${DEVTRON_NS} --values ${ROOT_DIR}/values.yaml
