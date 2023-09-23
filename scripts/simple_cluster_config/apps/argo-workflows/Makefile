@@ -33,8 +33,21 @@ install-cli:
 test-app:
 	argo submit -n argo --watch https://raw.githubusercontent.com/argoproj/argo-workflows/master/examples/hello-world.yaml
 
+describe-wf:
+	kubectl describe crd workflows.argoproj.io
+
+hello:
+	argo delete -n argo --all
+	argo submit -n argo --watch --name marksay workflows/hello.yaml
+	kubectl -n argo get wf
+	kubectl -n argo describe wf marksay
+	argo logs -n argo marksay
+
 list-workflows:
 	argo list -n argo
+
+lint:
+	argo lint workflows
 
 start-server:
 	argo -n argo server --access-control-allow-origin=* --auth-mode=server
