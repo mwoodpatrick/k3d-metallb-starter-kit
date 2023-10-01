@@ -2,10 +2,11 @@
 NAME := westie-debian
 
 build:
-	docker buildx build --load -t ${NAME}:latest --label mylabel=xxx .
+	docker buildx build --load -t ${NAME}:latest --label mylabel=xxx . 2>&1 | tee docker_build.log
+	# echo "see docker_build.log for build info"
 
 run:
-	docker run --label myc=uuu --name ${NAME} ${NAME}:latest sleep infinity &
+	docker run --label myc=uuu --name ${NAME} --hostname ${NAME} ${NAME}:latest sleep infinity &
 
 exec:
 	docker exec -it -u node ${NAME} bash

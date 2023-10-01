@@ -13,7 +13,8 @@ ARG NPM_GLOBAL=/usr/local/share/npm-global
 RUN npm install -g npm@10.1.0
 
 RUN \
-    echo running as user `whoami` \
+    apt update \
+    && apt upgrade \
     # Configure global npm install location, use group to adapt to UID/GID changes
     && if ! cat /etc/group | grep -e "^npm:" > /dev/null 2>&1; then groupadd -r npm; fi \
     && usermod -a -G npm ${USERNAME} \
@@ -26,15 +27,11 @@ RUN \
     && su ${USERNAME} -c "npm config -g set prefix ${NPM_GLOBAL}" \
     # Install eslint
     && su ${USERNAME} -c "umask 0002 && npm install -g eslint" \
-    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash \
     # Install nvm
+    && su ${USERNAME} -c "curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash" \
     # && nvm install ${EXTRA_NODE_VERSION} \
     && npm cache clean --force > /dev/null 2>&1 \
-    # && su ${USERNAME} apt update 
-    # && su ${USERNAME} apt upgrade
-    && node --version \
-    && source ~/.bashrc
-    # nvm --version
+    && node --version
 
 
 # [Optional] Uncomment this section to install additional OS packages.
