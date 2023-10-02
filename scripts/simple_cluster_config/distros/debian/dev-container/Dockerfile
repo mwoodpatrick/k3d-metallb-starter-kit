@@ -33,10 +33,19 @@ RUN \
     && npm cache clean --force > /dev/null 2>&1 \
     && node --version
 
+# Install tslint, typescript. eslint is installed by javascript image
+ARG NODE_MODULES="tslint-to-eslint-config typescript"
+RUN su node -c "umask 0002 && npm install -g ${NODE_MODULES}" \
+    && npm cache clean --force > /dev/null 2>&1
+
+# Install yarn
+RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+     && apt-get -y install yarn \
+     && yarn --version
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-# [Optional] Uncomment if you want to install more global node modules
-# RUN su node -c "npm install -g <your-package-list-here>"
+# [Optional] Uncomment if you want to install more global node packages
+# RUN su node -c "npm install -g <your-package-list -here>"
